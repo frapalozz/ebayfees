@@ -30,7 +30,6 @@
   h1 span { color: var(--accent); }
   header p { color: var(--muted); font-size: 14px; margin-top: 6px; }
 
-  /* Toggle tema: fisso, piccolo, sempre visibile */
   .theme-btn {
     position: fixed;
     top: max(12px, env(safe-area-inset-top));
@@ -88,8 +87,8 @@
     position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
     color: var(--muted); font-size: 13px; pointer-events: none;
   }
-  /* font-size: 16px impedisce lo zoom automatico su iOS */
-  input[type="number"] {
+  /* type="text" con inputmode="decimal": accetta virgola e punto su mobile */
+  input.decimal-input {
     width: 100%; background: var(--card-2); border: 1px solid var(--border);
     border-radius: 9px; padding: 11px 40px 11px 12px; color: var(--text);
     font-size: 16px; font-weight: 600; outline: none;
@@ -98,11 +97,8 @@
     -webkit-appearance: none;
     appearance: none;
   }
-  input[type="number"]:focus { border-color: var(--accent); }
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-  input[type="number"] { -moz-appearance: textfield; }
-  input::placeholder { color: var(--muted); opacity: .6; font-weight: 400; }
+  input.decimal-input:focus { border-color: var(--accent); }
+  input.decimal-input::placeholder { color: var(--muted); opacity: .6; font-weight: 400; }
   .toggle-row {
     display: flex; justify-content: space-between; align-items: center;
     padding: 10px 12px; background: var(--card-2); border: 1px solid var(--border);
@@ -217,21 +213,19 @@
 
   <button class="theme-btn" id="themeBtn" title="Cambia tema" aria-label="Cambia tema">🌙</button>
 
-  <!-- TOGGLE MODALITÀ -->
   <div class="mode-toggle">
     <button class="mode-btn active" id="modePrivato">Privato</button>
     <button class="mode-btn" id="modeProfessionale">Professionale</button>
   </div>
 
   <div class="grid">
-    <!-- INPUT -->
     <div class="card">
       <h2>Dati vendita</h2>
 
       <div class="field">
         <label>Prezzo di vendita</label>
         <div class="input-wrap">
-          <input type="number" id="prezzo" placeholder="0,00" step="0.01" inputmode="decimal">
+          <input type="text" class="decimal-input" id="prezzo" placeholder="0,00" inputmode="decimal" autocomplete="off">
           <span class="suffix">€</span>
         </div>
       </div>
@@ -239,7 +233,7 @@
       <div class="field">
         <label>Costo d'acquisto</label>
         <div class="input-wrap">
-          <input type="number" id="costo" placeholder="0,00" step="0.01" inputmode="decimal">
+          <input type="text" class="decimal-input" id="costo" placeholder="0,00" inputmode="decimal" autocomplete="off">
           <span class="suffix">€</span>
         </div>
       </div>
@@ -247,7 +241,7 @@
       <div class="field">
         <label>Costo di spedizione</label>
         <div class="input-wrap">
-          <input type="number" id="spedizione" placeholder="0,00" step="0.01" inputmode="decimal">
+          <input type="text" class="decimal-input" id="spedizione" placeholder="0,00" inputmode="decimal" autocomplete="off">
           <span class="suffix">€</span>
         </div>
       </div>
@@ -255,7 +249,7 @@
       <div class="field">
         <label>Altre commissioni (facoltative)</label>
         <div class="input-wrap">
-          <input type="number" id="altre" placeholder="0,00" step="0.01" inputmode="decimal">
+          <input type="text" class="decimal-input" id="altre" placeholder="0,00" inputmode="decimal" autocomplete="off">
           <span class="suffix">€</span>
         </div>
       </div>
@@ -268,7 +262,7 @@
       <div class="field" id="percField" style="display:none;">
         <label>Percentuale sponsorizzata</label>
         <div class="input-wrap">
-          <input type="number" id="perc" placeholder="es. 12" step="0.1" inputmode="decimal">
+          <input type="text" class="decimal-input" id="perc" placeholder="es. 12" inputmode="decimal" autocomplete="off">
           <span class="suffix">%</span>
         </div>
         <div class="chips" style="margin-top:10px;">
@@ -289,40 +283,38 @@
         </div>
       </div>
 
-      <!-- SEZIONE PROFESSIONALE -->
       <div class="pro-section" id="proSection">
         <div class="field">
           <label>Commissione sul valore finale</label>
           <div class="input-wrap">
-            <input type="number" id="proComm" placeholder="es. 11" step="0.1" inputmode="decimal">
+            <input type="text" class="decimal-input" id="proComm" placeholder="es. 11" inputmode="decimal" autocomplete="off">
             <span class="suffix">%</span>
           </div>
         </div>
         <div class="field">
           <label>Tariffa fissa per ordine</label>
           <div class="input-wrap">
-            <input type="number" id="proFixed" placeholder="es. 0,35" step="0.01" inputmode="decimal">
+            <input type="text" class="decimal-input" id="proFixed" placeholder="es. 0,35" inputmode="decimal" autocomplete="off">
             <span class="suffix">€</span>
           </div>
         </div>
         <div class="field">
           <label>Tariffa adeguamento normativo</label>
           <div class="input-wrap">
-            <input type="number" id="proReg" placeholder="es. 0,35" step="0.01" inputmode="decimal">
+            <input type="text" class="decimal-input" id="proReg" placeholder="es. 0,35" inputmode="decimal" autocomplete="off">
             <span class="suffix">%</span>
           </div>
         </div>
         <div class="field">
           <label>Costo mensile Negozio (facoltativo)</label>
           <div class="input-wrap">
-            <input type="number" id="proStore" placeholder="es. 24,95" step="0.01" inputmode="decimal">
+            <input type="text" class="decimal-input" id="proStore" placeholder="es. 24,95" inputmode="decimal" autocomplete="off">
             <span class="suffix">€</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- OUTPUT -->
     <div class="card">
       <h2>Risultato</h2>
 
@@ -332,7 +324,6 @@
           <span class="value" id="rPrezzo">€ 0,00</span>
         </div>
 
-        <!-- Fee professionali -->
         <div id="proFeeRows" style="display:none;">
           <div class="row minus">
             <span class="label">Commissione valore finale <span class="perc-tag" id="rProCommTag">11%</span></span>
@@ -352,7 +343,6 @@
           </div>
         </div>
 
-        <!-- Fee sponsorizzata -->
         <div class="row minus" id="rFeeRow" style="display:none;">
           <span class="label">Fee sponsorizzata <span class="perc-tag" id="rPercTag">0%</span></span>
           <span class="value" id="rFee">− € 0,00</span>
@@ -410,13 +400,33 @@
     return (Math.round(n * 10) / 10).toString().replace(".", ",") + "%";
   }
 
-  // ---------- CALCOLO ----------
+  // Parsing robusto: accetta virgola e punto
+  function parseNum(v) {
+    if (!v) return 0;
+    const s = String(v).trim().replace(",", ".");
+    const n = parseFloat(s);
+    return isNaN(n) ? 0 : n;
+  }
+
+  // Sanitizza l'input: solo cifre, una virgola o un punto
+  function sanitizeDecimal(e) {
+    let v = e.target.value;
+    // rimuovi tutto ciò che non è cifra, virgola o punto
+    v = v.replace(/[^0-9.,]/g, "");
+    // tieni solo il primo separatore (virgola o punto)
+    const firstSep = v.search(/[.,]/);
+    if (firstSep !== -1) {
+      v = v.slice(0, firstSep + 1) + v.slice(firstSep + 1).replace(/[.,]/g, "");
+    }
+    if (v !== e.target.value) e.target.value = v;
+  }
+
   function calc() {
-    const prezzo = parseFloat($("prezzo").value) || 0;
-    const costo = parseFloat($("costo").value) || 0;
-    const sped = parseFloat($("spedizione").value) || 0;
-    const altre = parseFloat($("altre").value) || 0;
-    const perc = parseFloat($("perc").value) || 0;
+    const prezzo = parseNum($("prezzo").value);
+    const costo = parseNum($("costo").value);
+    const sped = parseNum($("spedizione").value);
+    const altre = parseNum($("altre").value);
+    const perc = parseNum($("perc").value);
 
     let feeTot = 0;
     let feeIva = 0;
@@ -424,12 +434,11 @@
     let feeSponIva = 0;
     let storeCost = 0;
 
-    // --- Fee professionali ---
     if (state.mode === "professionale") {
-      const pComm = parseFloat($("proComm").value) || 0;
-      const pFixed = parseFloat($("proFixed").value) || 0;
-      const pReg = parseFloat($("proReg").value) || 0;
-      const pStore = parseFloat($("proStore").value) || 0;
+      const pComm = parseNum($("proComm").value);
+      const pFixed = parseNum($("proFixed").value);
+      const pReg = parseNum($("proReg").value);
+      const pStore = parseNum($("proStore").value);
 
       const base = prezzo + sped;
       const comm = base * (pComm / 100);
@@ -454,19 +463,16 @@
       $("rProIvaRow").style.display = "none";
     }
 
-    // --- Sponsorizzata ---
     if (state.sponsor && perc > 0) {
       const spNetta = prezzo * (perc / 100);
       feeSponIva = spNetta * (state.iva / 100);
       feeSpon = spNetta + feeSponIva;
     }
 
-    // --- Totale ---
     const netto = prezzo - feeTot - feeIva - feeSpon - sped - altre - storeCost;
     const profitto = netto - costo;
     const margine = prezzo > 0 ? (profitto / prezzo) * 100 : 0;
 
-    // --- Output ---
     $("rPrezzo").textContent = fmt(prezzo);
     $("rSped").textContent = "− " + fmt(sped);
     $("rAltre").textContent = "− " + fmt(altre);
@@ -497,16 +503,14 @@
     $("profitBox").classList.toggle("negative", profitto < 0);
   }
 
-  // ---------- CHIP PERCENTUALE ----------
   function syncPercChips() {
-    const val = parseFloat($("perc").value);
+    const val = parseNum($("perc").value);
     document.querySelectorAll("#percField .chip").forEach(chip => {
       const p = parseFloat(chip.dataset.p);
-      chip.classList.toggle("active", !isNaN(val) && val === p);
+      chip.classList.toggle("active", val > 0 && val === p);
     });
   }
 
-  // ---------- SALVATAGGIO ----------
   function save() {
     const data = {
       prezzo: $("prezzo").value, costo: $("costo").value,
@@ -557,7 +561,6 @@
     }
   }
 
-  // ---------- MODALITÀ ----------
   function setMode(mode, doSave) {
     state.mode = mode;
     const isPro = mode === "professionale";
@@ -568,15 +571,14 @@
 
     if (isPro) {
       if (!$("proComm").value) $("proComm").value = "11";
-      if (!$("proFixed").value) $("proFixed").value = "0.35";
-      if (!$("proReg").value) $("proReg").value = "0.35";
+      if (!$("proFixed").value) $("proFixed").value = "0,35";
+      if (!$("proReg").value) $("proReg").value = "0,35";
     }
 
     calc();
     if (doSave) save();
   }
 
-  // ---------- RESET ----------
   function resetAll() {
     ["prezzo","costo","spedizione","altre","perc","proComm","proFixed","proReg","proStore"].forEach(id => {
       $(id).value = "";
@@ -597,7 +599,6 @@
     calc();
   }
 
-  // ---------- EVENTI ----------
   $("modePrivato").addEventListener("click", () => setMode("privato", true));
   $("modeProfessionale").addEventListener("click", () => setMode("professionale", true));
 
@@ -633,11 +634,15 @@
     });
   });
 
-  ["prezzo","costo","spedizione","altre","proComm","proFixed","proReg","proStore"].forEach(id => {
-    $(id).addEventListener("input", () => { calc(); save(); });
+  // Applica sanitize + calc a tutti gli input decimali
+  document.querySelectorAll("input.decimal-input").forEach(input => {
+    input.addEventListener("input", (e) => {
+      sanitizeDecimal(e);
+      if (input.id === "perc") syncPercChips();
+      calc();
+      save();
+    });
   });
-
-  $("perc").addEventListener("input", () => { syncPercChips(); calc(); save(); });
 
   $("resetBtn").addEventListener("click", resetAll);
 
@@ -647,7 +652,6 @@
     save();
   });
 
-  // ---------- AVVIO ----------
   load();
   syncPercChips();
   calc();
