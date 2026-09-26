@@ -1,0 +1,23 @@
+{
+  "name": "Calcolatore Netto Flipping eBay",
+  "short_name": "Flip Calc",
+  "description": "Calcola il netto di una vendita eBay in secondi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1115",
+  "theme_color": "#4f8cff",
+  "lang": "it",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
