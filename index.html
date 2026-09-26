@@ -20,7 +20,7 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: radial-gradient(circle at top, var(--card-2) 0%, var(--bg) 55%);
-    color: var(--text); min-height: 100vh; padding: 32px 16px;
+    color: var(--text); min-height: 100vh; padding: 32px 16px 120px;
     display: flex; justify-content: center; align-items: flex-start;
     transition: background .3s, color .3s;
   }
@@ -87,7 +87,6 @@
     position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
     color: var(--muted); font-size: 13px; pointer-events: none;
   }
-  /* type="text" con inputmode="decimal": accetta virgola e punto su mobile */
   input.decimal-input {
     width: 100%; background: var(--card-2); border: 1px solid var(--border);
     border-radius: 9px; padding: 11px 40px 11px 12px; color: var(--text);
@@ -99,25 +98,52 @@
   }
   input.decimal-input:focus { border-color: var(--accent); }
   input.decimal-input::placeholder { color: var(--muted); opacity: .6; font-weight: 400; }
+
+  /* --- TOGGLE SPONSORIZZATO (più evidente quando attivo) --- */
   .toggle-row {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 12px; background: var(--card-2); border: 1px solid var(--border);
-    border-radius: 9px; margin-bottom: 14px; transition: background .3s, border-color .3s;
+    padding: 10px 12px;
+    background: var(--card-2);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    margin-bottom: 14px;
+    transition: background .25s, border-color .25s, color .25s;
   }
-  .toggle-row span { font-size: 14px; font-weight: 500; }
+  .toggle-row span {
+    font-size: 14px; font-weight: 500;
+    transition: color .25s;
+  }
+  .toggle-row.active {
+    background: rgba(79, 140, 255, 0.13);
+    border-color: var(--accent);
+  }
+  body.light .toggle-row.active {
+    background: rgba(59, 125, 255, 0.10);
+  }
+  .toggle-row.active span {
+    color: var(--accent);
+    font-weight: 700;
+  }
   .switch {
-    position: relative; width: 46px; height: 26px; background: #3a4150;
-    border-radius: 99px; cursor: pointer; transition: background .2s; flex-shrink: 0;
+    position: relative; width: 46px; height: 26px;
+    background: #3a4150; border-radius: 99px;
+    cursor: pointer; transition: background .2s;
+    flex-shrink: 0;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
   body.light .switch { background: #cbd5e1; }
-  .switch.on { background: var(--accent); }
-  .switch::after {
-    content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px;
-    background: #fff; border-radius: 50%; transition: transform .2s;
+  .switch.on {
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.25);
   }
   .switch.on::after { transform: translateX(20px); }
+  .switch::after {
+    content: ""; position: absolute; top: 3px; left: 3px;
+    width: 20px; height: 20px; background: #fff; border-radius: 50%;
+    transition: transform .2s;
+  }
+
   .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
   .chip {
     background: var(--card-2); border: 1px solid var(--border); color: var(--muted);
@@ -202,6 +228,81 @@
   .hint b { color: var(--text); }
   .pro-section { display: none; }
   .pro-section.visible { display: block; }
+
+  /* --- STICKY BAR --- */
+  .sticky-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 12px;
+    z-index: 9997;
+    box-shadow: 0 -6px 24px rgba(0,0,0,0.25);
+    transform: translateY(110%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    pointer-events: none;
+    will-change: transform;
+  }
+  body.light .sticky-bar {
+    box-shadow: 0 -6px 24px rgba(0,0,0,0.08);
+  }
+  .sticky-bar.visible {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .sticky-item {
+    flex: 1;
+    max-width: 220px;
+    text-align: center;
+    padding: 6px 8px;
+    border-radius: 10px;
+    background: var(--card-2);
+    border: 1px solid var(--border);
+    transition: background .3s, border-color .3s;
+  }
+  .sticky-item .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 2px;
+    font-weight: 700;
+  }
+  .sticky-item .value {
+    font-size: 20px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.5px;
+    transition: color .2s;
+  }
+  .sticky-item.netto {
+    background: rgba(34, 197, 94, 0.08);
+    border-color: rgba(34, 197, 94, 0.25);
+  }
+  body.light .sticky-item.netto {
+    background: rgba(22, 163, 74, 0.06);
+    border-color: rgba(22, 163, 74, 0.2);
+  }
+  .sticky-item.netto .value { color: var(--accent-2); }
+  .sticky-item.profitto {
+    background: rgba(79, 140, 255, 0.08);
+    border-color: rgba(79, 140, 255, 0.25);
+  }
+  body.light .sticky-item.profitto {
+    background: rgba(59, 125, 255, 0.06);
+    border-color: rgba(59, 125, 255, 0.2);
+  }
+  .sticky-item.profitto .value { color: var(--accent); }
+  .sticky-item.profitto.negative {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.25);
+  }
+  .sticky-item.profitto.negative .value { color: var(--danger); }
 </style>
 </head>
 <body>
@@ -254,7 +355,7 @@
         </div>
       </div>
 
-      <div class="toggle-row">
+      <div class="toggle-row" id="sponsorRow">
         <span>Prodotto sponsorizzato</span>
         <div class="switch" id="sponsorSwitch"></div>
       </div>
@@ -366,7 +467,7 @@
         </div>
       </div>
 
-      <div class="big">
+      <div class="big" id="bigNetto">
         <div class="label">Netto in tasca</div>
         <div class="amount" id="rNetto">€ 0,00</div>
         <div class="sub">quello che incassi davvero</div>
@@ -388,6 +489,18 @@
   </div>
 </div>
 
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-item netto">
+    <div class="label">Netto in tasca</div>
+    <div class="value" id="sNetto">€ 0,00</div>
+  </div>
+  <div class="sticky-item profitto" id="sProfitBox">
+    <div class="label">Profitto reale</div>
+    <div class="value" id="sProfitto">€ 0,00</div>
+  </div>
+</div>
+
 <script>
   const $ = id => document.getElementById(id);
   const state = { sponsor: false, iva: 22, mode: "privato" };
@@ -399,21 +512,15 @@
   function fmtPerc(n) {
     return (Math.round(n * 10) / 10).toString().replace(".", ",") + "%";
   }
-
-  // Parsing robusto: accetta virgola e punto
   function parseNum(v) {
     if (!v) return 0;
     const s = String(v).trim().replace(",", ".");
     const n = parseFloat(s);
     return isNaN(n) ? 0 : n;
   }
-
-  // Sanitizza l'input: solo cifre, una virgola o un punto
   function sanitizeDecimal(e) {
     let v = e.target.value;
-    // rimuovi tutto ciò che non è cifra, virgola o punto
     v = v.replace(/[^0-9.,]/g, "");
-    // tieni solo il primo separatore (virgola o punto)
     const firstSep = v.search(/[.,]/);
     if (firstSep !== -1) {
       v = v.slice(0, firstSep + 1) + v.slice(firstSep + 1).replace(/[.,]/g, "");
@@ -501,6 +608,11 @@
     $("rMargine").textContent = fmtPerc(margine);
 
     $("profitBox").classList.toggle("negative", profitto < 0);
+
+    // Aggiorna sticky
+    $("sNetto").textContent = fmt(netto);
+    $("sProfitto").textContent = fmt(profitto);
+    $("sProfitBox").classList.toggle("negative", profitto < 0);
   }
 
   function syncPercChips() {
@@ -543,8 +655,7 @@
     state.iva = typeof data.iva === "number" ? data.iva : 22;
     state.mode = data.mode === "professionale" ? "professionale" : "privato";
 
-    $("sponsorSwitch").classList.toggle("on", state.sponsor);
-    $("percField").style.display = state.sponsor ? "block" : "none";
+    updateSponsorUI();
 
     document.querySelectorAll("#ivaChips .chip").forEach(chip => {
       chip.classList.toggle("active", parseFloat(chip.dataset.iva) === state.iva);
@@ -559,6 +670,12 @@
       document.body.classList.remove("light");
       $("themeBtn").textContent = "🌙";
     }
+  }
+
+  function updateSponsorUI() {
+    $("sponsorSwitch").classList.toggle("on", state.sponsor);
+    $("sponsorRow").classList.toggle("active", state.sponsor);
+    $("percField").style.display = state.sponsor ? "block" : "none";
   }
 
   function setMode(mode, doSave) {
@@ -586,8 +703,7 @@
     state.sponsor = false;
     state.iva = 22;
     state.mode = "privato";
-    $("sponsorSwitch").classList.remove("on");
-    $("percField").style.display = "none";
+    updateSponsorUI();
     $("proSection").classList.remove("visible");
     $("modePrivato").classList.add("active");
     $("modeProfessionale").classList.remove("active");
@@ -599,13 +715,22 @@
     calc();
   }
 
+  // --- EVENTI ---
   $("modePrivato").addEventListener("click", () => setMode("privato", true));
   $("modeProfessionale").addEventListener("click", () => setMode("professionale", true));
 
   $("sponsorSwitch").addEventListener("click", () => {
     state.sponsor = !state.sponsor;
-    $("sponsorSwitch").classList.toggle("on", state.sponsor);
-    $("percField").style.display = state.sponsor ? "block" : "none";
+    updateSponsorUI();
+    syncPercChips();
+    calc(); save();
+  });
+
+  // Anche cliccando sulla riga si attiva/disattiva
+  $("sponsorRow").addEventListener("click", (e) => {
+    if (e.target.id === "sponsorSwitch") return; // già gestito
+    state.sponsor = !state.sponsor;
+    updateSponsorUI();
     syncPercChips();
     calc(); save();
   });
@@ -634,7 +759,6 @@
     });
   });
 
-  // Applica sanitize + calc a tutti gli input decimali
   document.querySelectorAll("input.decimal-input").forEach(input => {
     input.addEventListener("input", (e) => {
       sanitizeDecimal(e);
@@ -651,6 +775,43 @@
     $("themeBtn").textContent = isLight ? "☀️" : "🌙";
     save();
   });
+
+  // --- STICKY BAR (visibile solo quando i risultati principali sono fuori schermo) ---
+  const bigEl = $("bigNetto");
+  const profitEl = $("profitBox");
+  const stickyBar = $("stickyBar");
+  let bigVisible = false;
+  let profitVisible = false;
+
+  function checkSticky() {
+    if (!bigVisible && !profitVisible) {
+      stickyBar.classList.add("visible");
+    } else {
+      stickyBar.classList.remove("visible");
+    }
+  }
+
+  if ("IntersectionObserver" in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.target === bigEl) bigVisible = entry.isIntersecting;
+        if (entry.target === profitEl) profitVisible = entry.isIntersecting;
+      });
+      checkSticky();
+    }, { threshold: 0 });
+    obs.observe(bigEl);
+    obs.observe(profitEl);
+  } else {
+    // fallback per browser vecchi
+    window.addEventListener("scroll", () => {
+      const r1 = bigEl.getBoundingClientRect();
+      const r2 = profitEl.getBoundingClientRect();
+      const vh = window.innerHeight;
+      bigVisible = r1.top < vh && r1.bottom > 0;
+      profitVisible = r2.top < vh && r2.bottom > 0;
+      checkSticky();
+    });
+  }
 
   load();
   syncPercChips();
