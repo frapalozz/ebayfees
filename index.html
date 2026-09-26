@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <!-- Titolo e descrizione base -->
 <title>Calcolatore Netto Flipping eBay</title>
 <meta name="description" content="Calcola in secondi quanto ti resta in tasca da una vendita su eBay: fee, sponsorizzata, IVA, spedizione e costo d'acquisto. Per venditori privati e professionali.">
@@ -16,6 +17,7 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="alternate icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
 
 <!-- Theme color (barra del browser mobile) -->
 <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)">
@@ -46,10 +48,7 @@
 <meta name="apple-mobile-web-app-title" content="Flip Calc">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="alternate icon" href="favicon.ico">
-<link rel="manifest" href="/manifest.json">
-<title>Calcolatore Netto Flipping Ebay</title>
+
 <style>
   :root {
     --bg: #0f1115; --card: #171a21; --card-2: #1e222b; --border: #2a2f3a;
@@ -75,6 +74,21 @@
   h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
   h1 span { color: var(--accent); }
   header p { color: var(--muted); font-size: 14px; margin-top: 6px; }
+
+  /* --- DATA ULTIMO AGGIORNAMENTO --- */
+  .last-update {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--muted);
+    background: var(--card-2);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 99px;
+    transition: background .3s, border-color .3s, color .3s;
+  }
 
   .theme-btn {
     position: fixed;
@@ -145,7 +159,6 @@
   input.decimal-input:focus { border-color: var(--accent); }
   input.decimal-input::placeholder { color: var(--muted); opacity: .6; font-weight: 400; }
 
-  /* --- TOGGLE SPONSORIZZATO (più evidente quando attivo) --- */
   .toggle-row {
     display: flex; justify-content: space-between; align-items: center;
     padding: 10px 12px;
@@ -356,6 +369,7 @@
   <header>
     <h1>Calcolatore <span>Netto Flipping</span></h1>
     <p>Inserisci i dati e vedi subito quanto ti resta in tasca</p>
+    <div class="last-update">Ultimo aggiornamento 26/09/2026</div>
   </header>
 
   <button class="theme-btn" id="themeBtn" title="Cambia tema" aria-label="Cambia tema">🌙</button>
